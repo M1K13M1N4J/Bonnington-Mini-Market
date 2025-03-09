@@ -9,19 +9,19 @@
     <style>
         body {
             background-color: #080710;
-            color: #ffffff; /* White text color */
+            color: #ffffff;
             font-family: 'Poppins', sans-serif;
         }
 
         .background {
             width: 100%;
             max-width: 430px;
-            height: 100vh; /* Make background full viewport height */
+            height: 100vh;
             position: absolute;
             transform: translate(-50%, -50%);
             left: 50%;
             top: 50%;
-            overflow: hidden; /* Prevent shapes from overflowing */
+            overflow: hidden;
         }
 
         .background .shape {
@@ -45,7 +45,7 @@
 
         .content {
             position: relative;
-            z-index: 1; /* Ensure content is above the background */
+            z-index: 1;
             text-align: center;
             padding: 20px;
         }
@@ -59,6 +59,18 @@
         p {
             font-size: 16px;
             line-height: 1.6;
+        }
+
+        /* Style for the Login button */
+        button {
+          background-color: #f2f2f2; /* Light gray background */
+          color: #333; /* Dark gray text color */
+          padding: 10px 20px; /* Add some padding */
+          font-size: 16px;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          margin-top: 20px; /* Add some space above the button */
         }
 
         /* Responsive adjustments */
@@ -84,6 +96,7 @@
         <p>Your one-stop shop for everyday essentials!</p>
         <p>Browse our wide selection of groceries, fresh produce, household items, and more.</p>
         <p>Visit us today and experience the convenience!</p>
+        <button onclick="window.location.href='/login'">Login</button>
     </div>
 </body>
 </html>
