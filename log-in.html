@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bonnington Mini Market Login</title>
-  
-  <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-
   <style>
-    *, *:before, *:after {
+    *,
+    *:before,
+    *:after {
       padding: 0;
       margin: 0;
       box-sizing: border-box;
@@ -117,107 +116,76 @@
     .social {
       margin-top: 30px;
       display: flex;
-      justify-content: space-between;
     }
 
     .social div {
       width: 150px;
       border-radius: 3px;
-      padding: 10px;
+      padding: 5px 10px 10px 5px;
       background-color: rgba(255, 255, 255, 0.27);
-      color: #ffffff;
+      color: #ffffff; /* White text color */
       text-align: center;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
     .social div:hover {
       background-color: rgba(255, 255, 255, 0.47);
     }
+
+    .social .ms { /* Updated selector for Microsoft button */
+      margin-left: 25px;
+    }
+
+    .social i {
+      margin-right: 4px;
+    }
   </style>
-  
-  <!-- Google Sign-In API -->
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <!-- Facebook SDK -->
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </head>
 <body>
-
   <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
   </div>
-
   <form id="login-form">
     <h3>Login Here</h3>
-    
     <label for="username">Username</label>
     <input type="text" placeholder="Email or Phone" id="username">
-    
     <label for="password">Password</label>
     <input type="password" placeholder="Password" id="password">
-    
     <button type="submit">Log In</button>
-
     <div class="social">
       <div class="go" onclick="handleGoogleSignIn()">
         <i class="fab fa-google"></i> Google
       </div>
-      <div class="fb" onclick="handleFacebookSignIn()">
-        <i class="fab fa-facebook-f"></i> Facebook
-      </div>
+      <div class="ms" onclick="handleMicrosoftSignIn()"> <i class="fab fa-microsoft"></i> Microsoft </div>
     </div>
   </form>
 
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
   <script>
-    // Handle Google Sign-In with Redirect
     function handleCredentialResponse(response) {
       console.log("Encoded JWT ID token: " + response.credential);
-      
-      // Store the token
-      localStorage.setItem("google_token", response.credential);
+      // TODO: Send response.credential to your backend for verification
+    }
 
-      // Redirect to another page after login
-      window.location.href = "/dashboard.html"; // Change this to your actual dashboard page
+    function handleGoogleSignIn() {
+      google.accounts.id.prompt(); // Trigger the Google Sign-In prompt
+    }
+
+    function handleMicrosoftSignIn() {
+      // Replace this with your actual Microsoft Sign-In logic
+      console.log("Microsoft Sign-In clicked");
     }
 
     window.onload = function () {
       google.accounts.id.initialize({
-        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your actual Google Client ID
-        callback: handleCredentialResponse,
-        ux_mode: "redirect", // Redirects instead of using a pop-up
-        login_uri: window.location.href // Redirects back to the same page
+        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
+        callback: handleCredentialResponse
       });
 
-      google.accounts.id.prompt(); // Triggers the sign-in
-    };
-
-    // Handle Facebook Login
-    function handleFacebookSignIn() {
-      FB.login(function(response) {
-        if (response.authResponse) {
-          console.log('Welcome! Fetching your information....');
-          FB.api('/me', function(response) {
-            console.log('Good to see you, ' + response.name + '.');
-            window.location.href = "/dashboard.html"; // Redirect after login
-          });
-        } else {
-          console.log('User cancelled login or did not fully authorize.');
-        }
-      });
-    }
-
-    // Initialize Facebook SDK
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your actual Facebook App ID
-        cookie: true,
-        xfbml: true,
-        version: 'v15.0'
-      });
-    };
-
-    // Handle Regular Login Form Submission
+    // Regular form submission
     document.getElementById('login-form').addEventListener('submit', async (event) => {
       event.preventDefault();
 
@@ -227,14 +195,15 @@
       try {
         const response = await fetch('/.netlify/functions/login', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+          },
           body: JSON.stringify({ username, password }),
         });
 
         const data = await response.json();
         if (response.ok) {
           console.log(data.message);
-          window.location.href = "/dashboard.html"; // Redirect after successful login
         } else {
           console.error(data.error);
         }
@@ -243,7 +212,5 @@
       }
     });
   </script>
-
 </body>
 </html>
-
