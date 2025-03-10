@@ -162,7 +162,6 @@
   </form>
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
   <script>
     function handleCredentialResponse(response) {
@@ -184,6 +183,7 @@
         client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
         callback: handleCredentialResponse
       });
+    };
 
     // Regular form submission
     document.getElementById('login-form').addEventListener('submit', async (event) => {
