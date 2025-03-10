@@ -10,9 +10,7 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
   <style>
-    *,
-    *:before,
-    *:after {
+    *, *:before, *:after {
       padding: 0;
       margin: 0;
       box-sizing: border-box;
@@ -125,7 +123,7 @@
       border-radius: 3px;
       padding: 5px 10px 10px 5px;
       background-color: rgba(255, 255, 255, 0.27);
-      color: #ffffff; /* White text color */
+      color: #ffffff;
       text-align: center;
       cursor: pointer;
     }
@@ -148,6 +146,7 @@
     <div class="shape"></div>
     <div class="shape"></div>
   </div>
+
   <form id="login-form">
     <h3>Login Here</h3>
     <label for="username">Username</label>
@@ -155,6 +154,7 @@
     <label for="password">Password</label>
     <input type="password" placeholder="Password" id="password">
     <button type="submit">Log In</button>
+
     <div class="social">
       <div class="go" onclick="handleGoogleSignIn()">
         <i class="fab fa-google"></i> Google
@@ -189,17 +189,18 @@
     }
 
     window.onload = function () {
+      // Initialize Google Login
       google.accounts.id.initialize({
-        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Corrected client_id
+        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
         callback: handleCredentialResponse
       });
 
-      // Ensure the prompt is triggered correctly
+      // Show the Google login prompt
       setTimeout(() => {
         google.accounts.id.prompt();
       }, 1000);
 
-      // Facebook Login Initialization
+      // Initialize Facebook Login
       FB.init({
         appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your Facebook App ID
         cookie: true,
@@ -218,9 +219,7 @@
       try {
         const response = await fetch('/.netlify/functions/login', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password }),
         });
 
@@ -235,6 +234,6 @@
       }
     });
   </script>
+
 </body>
 </html>
-
