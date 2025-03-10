@@ -1,102 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bonnington Mini Market Home</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #080710;
-            color: #ffffff;
-            font-family: 'Poppins', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bonnington Mini Market Home</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #080710;
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+    }
 
-        .background {
-            width: 100%;
-            max-width: 430px;
-            height: 100vh;
-            position: absolute;
-            transform: translate(-50%, -50%);
-            left: 50%;
-            top: 50%;
-            overflow: hidden;
-        }
+    .background {
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+      overflow: hidden;
+    }
 
-        .background .shape {
-            height: 200px;
-            width: 200px;
-            position: absolute;
-            border-radius: 50%;
-        }
+    .background .shape {
+      height: 200px;
+      width: 200px;
+      position: absolute;
+      border-radius: 50%;
+    }
 
-        .shape:first-child {
-            background: linear-gradient(#1845ad, #23a2f6);
-            left: -80px;
-            top: -80px;
-        }
+    .shape:first-child {
+      background: linear-gradient(#1845ad, #23a2f6);
+      left: -80px;
+      top: -80px;
+    }
 
-        .shape:last-child {
-            background: linear-gradient(to right, #ff512f, #f09819);
-            right: -30px;
-            bottom: -80px;
-        }
+    .shape:last-child {
+      background: linear-gradient(to right, #ff512f, #f09819);
+      right: -30px;
+      bottom: -80px;
+    }
 
-        .content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 20px;
-        }
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 20px;
+    }
 
-        h1 {
-            font-size: 32px;
-            font-weight: 500;
-            margin-bottom: 20px;
-        }
+    h1 {
+      font-size: 32px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
 
-        p {
-            font-size: 16px;
-            line-height: 1.6;
-        }
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
 
-        /* Style for the Login button */
-        button {
-          background-color: #f2f2f2; /* Light gray background */
-          color: #333; /* Dark gray text color */
-          padding: 10px 20px; /* Add some padding */
-          font-size: 16px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          margin-top: 20px; /* Add some space above the button */
-        }
+    button {
+      background-color: #f2f2f2;
+      color: #333;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
 
-        /* Responsive adjustments */
-        @media (max-width: 600px) {
-            .background {
-                height: 100%;
-            }
+    @media (max-width: 600px) {
+      .background {
+        height: 100%;
+      }
 
-            .shape:first-child,
-            .shape:last-child {
-                display: none;
-            }
-        }
-    </style>
+      .shape:first-child,
+      .shape:last-child {
+        display: none;
+      }
+    }
+
+    /* Loading Screen Styles */
+    .loading-screen {
+      display: none; /* Initially hide the loading screen */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+      z-index: 1000; /* Ensure it's on top */
+    }
+
+    .loading-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    .loading-circle {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      background: linear-gradient(#1845ad, #23a2f6);
+      margin: 10px;
+      display: inline-block;
+      animation: pulse 1s ease-in-out infinite alternate;
+    }
+
+    .loading-circle:nth-child(2) {
+      background: linear-gradient(to right, #ff512f, #f09819);
+      animation-delay: 0.2s;
+    }
+
+    .loading-circle:nth-child(3) {
+      background: linear-gradient(to bottom right, #ff512f, #23a2f6);
+      animation-delay: 0.4s;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(1.2);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <div class="content">
+    <h1>Welcome to Bonnington Mini Market</h1>
+    <p>Your one-stop shop for everyday essentials!</p>
+    <p>Browse our wide selection of groceries, fresh produce, household items, and more.</p>
+    <p>Visit us today and experience the convenience!</p>
+    <button onclick="showLoader()">Login</button>
+  </div>
+
+  <div class="loading-screen" id="loader">
+    <div class="loading-content">
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
+      <div class="loading-circle"></div>
     </div>
-    <div class="content">
-        <h1>Welcome to Bonnington Mini Market</h1>
-        <p>Your one-stop shop for everyday essentials!</p>
-        <p>Browse our wide selection of groceries, fresh produce, household items, and more.</p>
-        <p>Visit us today and experience the convenience!</p>
-        <button onclick="window.location.href='/login'">Login</button>
-    </div>
+  </div>
+
+  <script>
+    function showLoader() {
+      document.getElementById('loader').style.display = 'block';
+      // Simulate loading delay (replace with your actual logic)
+      setTimeout(function() {
+        window.location.href = '/login';
+      }, 2000); // Adjust delay as needed
+    }
+  </script>
 </body>
 </html>
