@@ -1,1 +1,1 @@
-/login /log-in.html 200
+/auth/callback  /auth/callback.html  200
