@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ... (Include the same CSS from your login.html here) ... */
+
+    body {
+      background-color: #080710; /* Set the background color */
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      color: green;
+      margin-bottom: 1rem;
+    }
+
+    .message {
+      font-size: 1.5rem;
+      color: #ffffff; /* Set the text color to white */
+    }
+
+    /* You might need to add more styles here to adjust the positioning and appearance */
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <div class="content"> {/* Add a container for the success message */}
+    <div class="success-icon">
+      <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="message">
+      Success! Redirecting you to homepage...
+    </div>
+  </div>
+
+  <script>
+    // Redirect to homepage after a short delay (e.g., 3 seconds)
+    setTimeout(function() {
+      window.location.href = "/"; // Replace "/" with your actual homepage URL
+    }, 3000);
+  </script>
+</body>
+</html>
