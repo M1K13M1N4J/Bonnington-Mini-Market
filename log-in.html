@@ -21,8 +21,7 @@
     }
 
     .background {
-      width: 100%;
-      max-width: 430px;
+      width: 430px;
       height: 520px;
       position: absolute;
       transform: translate(-50%, -50%);
@@ -50,9 +49,8 @@
     }
 
     form {
-      height: 540px; /* Adjusted height to accommodate buttons */
-      width: 90%;
-      max-width: 400px;
+      height: 520px;
+      width: 400px;
       background-color: rgba(255, 255, 255, 0.13);
       position: absolute;
       transform: translate(-50%, -50%);
@@ -104,7 +102,7 @@
     }
 
     button {
-      margin-top: 30px; /* Reduced margin */
+      margin-top: 50px;
       width: 100%;
       background-color: #ffffff;
       color: #080710;
@@ -115,61 +113,37 @@
       cursor: pointer;
     }
 
-    .social {
-      margin-top: 20px; /* Reduced margin */
+    .social-wrapper {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      justify-content: center;
+    }
+
+    .social {
+      margin-top: 30px;
+      display: flex;
     }
 
     .social button {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 5px;
-      padding: 10px 20px;
-      margin: 10px 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 150px;
+      border-radius: 3px;
+      padding: 8px 10px; /* Even padding on all sides */
+      background-color: rgba(255, 255, 255, 0.27);
+      color: #ffffff;
+      text-align: center;
       border: none;
       cursor: pointer;
     }
 
-    .social button i {
-      margin-right: 10px;
-      color: white !important;
+    .social button:hover {
+      background-color: rgba(255, 255, 255, 0.47);
     }
 
-    .google-button {
-      background-color: #DB4437;
-      color: white;
+    .social .fb {
+      margin-left: 25px;
     }
 
-    .facebook-button {
-      background-color: #3b5998;
-      color: white;
-    }
-
-    /* Add margin to Log In button */
-    form button[type="submit"] {
-      margin-bottom: 20px;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 600px) {
-      .background {
-        height: 100%;
-      }
-
-      form {
-        height: auto;
-        padding: 30px 20px;
-      }
-
-      .shape:first-child,
-      .shape:last-child {
-        display: none;
-      }
+    .social i {
+      margin-right: 4px;
     }
   </style>
 </head>
@@ -185,11 +159,15 @@
     <label for="password">Password</label>
     <input type="password" placeholder="Password" id="password">
     <button type="submit">Log In</button>
-    <div class="social">
-      <div id="google-signin-button"></div>
-      <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with"
-           data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"
-           onlogin="checkLoginState();"></div>
+    <div class="social-wrapper">
+      <div class="social">
+        <button class="google-button" onclick="handleGoogleSignIn()">
+          <i class="fab fa-google"></i> Google
+        </button>
+        <button class="facebook-button fb" onclick="handleFacebookSignIn()">
+          <i class="fab fa-facebook-f"></i> Facebook
+        </button>
+      </div>
     </div>
   </form>
 
