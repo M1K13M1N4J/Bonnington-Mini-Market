@@ -165,71 +165,73 @@
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-  <script>
-    function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token: " + response.credential);
-      // TODO: Send response.credential to your backend for verification
-    }
+<script>
+  function handleCredentialResponse(response) {
+    console.log("Encoded JWT ID token: " + response.credential);
+    // TODO: Send response.credential to your backend for verification
+  }
 
-    function handleGoogleSignIn() {
-      google.accounts.id.prompt(); // Trigger the Google Sign-In prompt
-    }
+  function handleGoogleSignIn() {
+    google.accounts.id.prompt(); // Trigger the Google Sign-In prompt
+  }
 
-    function handleFacebookSignIn() {
-      FB.login(function(response) {
-        if (response.authResponse) {
-          console.log('Welcome!  Fetching your information.... ');
-          FB.api('/me', function(response) {
-            console.log('Good to see you, ' + response.name + '.');
-          });
-        } else {
-          console.log('User cancelled login or did not fully authorize.');
-        }
-      });
-    }
-
-    window.onload = function () {
-      google.accounts.id.initialize({
-        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
-        callback: handleCredentialResponse
-      });
-
-      // Facebook Login
-      FB.init({
-        appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your Facebook App ID
-        cookie: true,
-        xfbml: true,
-        version: 'v15.0'
-      });
-    }
-
-    // Regular form submission
-    document.getElementById('login-form').addEventListener('submit', async (event) => {
-      event.preventDefault();
-
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-
-      try {
-        const response = await fetch('/.netlify/functions/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
+  function handleFacebookSignIn() {
+    FB.login(function(response) {
+      if (response.authResponse) {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+          console.log('Good to see you, ' + response.name + '.');
         });
-
-        const data = await response.json();
-        if (response.ok) {
-          console.log(data.message);
-        } else {
-          console.error(data.error);
-        }
-      } catch (error) {
-        console.error('An error occurred:', error);
+      } else {
+        console.log('User cancelled login or did not fully authorize.');
       }
     });
-  </script>
+  }
+
+  window.onload = function () {
+    google.accounts.id.initialize({
+      client_id: " 116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
+      callback: handleCredentialResponse
+    });
+
+    // Facebook Login
+    FB.init({
+      appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your Facebook App ID
+      cookie: true,
+      xfbml: true,
+      version: 'v15.0'
+    });
+  };
+
+  // Regular form submission
+  document.getElementById('login-form').addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const response = await fetch('/.netlify/functions/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data.message);
+      } else {
+        console.error(data.error);
+      }
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
+  });
+</script>
 </body>
 </html>
