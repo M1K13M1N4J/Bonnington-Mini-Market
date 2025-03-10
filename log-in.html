@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bonnington Mini Market Login</title>
+  
+  <!-- Google Fonts & Font Awesome -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
   <style>
     *, *:before, *:after {
       padding: 0;
@@ -116,32 +117,32 @@
     .social {
       margin-top: 30px;
       display: flex;
+      justify-content: space-between;
     }
 
     .social div {
       width: 150px;
       border-radius: 3px;
-      padding: 5px 10px 10px 5px;
+      padding: 10px;
       background-color: rgba(255, 255, 255, 0.27);
       color: #ffffff;
       text-align: center;
       cursor: pointer;
+      transition: background 0.3s;
     }
 
     .social div:hover {
       background-color: rgba(255, 255, 255, 0.47);
     }
-
-    .social .fb {
-      margin-left: 25px;
-    }
-
-    .social i {
-      margin-right: 4px;
-    }
   </style>
+  
+  <!-- Google Sign-In API -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <!-- Facebook SDK -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 </head>
 <body>
+
   <div class="background">
     <div class="shape"></div>
     <div class="shape"></div>
@@ -149,10 +150,13 @@
 
   <form id="login-form">
     <h3>Login Here</h3>
+    
     <label for="username">Username</label>
     <input type="text" placeholder="Email or Phone" id="username">
+    
     <label for="password">Password</label>
     <input type="password" placeholder="Password" id="password">
+    
     <button type="submit">Log In</button>
 
     <div class="social">
@@ -166,21 +170,36 @@
   </form>
 
   <script>
+    // Handle Google Sign-In with Redirect
     function handleCredentialResponse(response) {
       console.log("Encoded JWT ID token: " + response.credential);
-      // TODO: Send response.credential to your backend for verification
+      
+      // Store the token
+      localStorage.setItem("google_token", response.credential);
+
+      // Redirect to another page after login
+      window.location.href = "/dashboard.html"; // Change this to your actual dashboard page
     }
 
-    function handleGoogleSignIn() {
-      google.accounts.id.prompt(); // Trigger the Google Sign-In prompt
-    }
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your actual Google Client ID
+        callback: handleCredentialResponse,
+        ux_mode: "redirect", // Redirects instead of using a pop-up
+        login_uri: window.location.href // Redirects back to the same page
+      });
 
+      google.accounts.id.prompt(); // Triggers the sign-in
+    };
+
+    // Handle Facebook Login
     function handleFacebookSignIn() {
       FB.login(function(response) {
         if (response.authResponse) {
-          console.log('Welcome! Fetching your information.... ');
+          console.log('Welcome! Fetching your information....');
           FB.api('/me', function(response) {
             console.log('Good to see you, ' + response.name + '.');
+            window.location.href = "/dashboard.html"; // Redirect after login
           });
         } else {
           console.log('User cancelled login or did not fully authorize.');
@@ -188,28 +207,17 @@
       });
     }
 
-    window.onload = function () {
-      // Initialize Google Login
-      google.accounts.id.initialize({
-        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
-        callback: handleCredentialResponse
-      });
-
-      // Show the Google login prompt
-      setTimeout(() => {
-        google.accounts.id.prompt();
-      }, 1000);
-
-      // Initialize Facebook Login
+    // Initialize Facebook SDK
+    window.fbAsyncInit = function() {
       FB.init({
-        appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your Facebook App ID
+        appId: 'YOUR_FACEBOOK_APP_ID', // Replace with your actual Facebook App ID
         cookie: true,
         xfbml: true,
         version: 'v15.0'
       });
     };
 
-    // Regular form submission
+    // Handle Regular Login Form Submission
     document.getElementById('login-form').addEventListener('submit', async (event) => {
       event.preventDefault();
 
@@ -226,6 +234,7 @@
         const data = await response.json();
         if (response.ok) {
           console.log(data.message);
+          window.location.href = "/dashboard.html"; // Redirect after successful login
         } else {
           console.error(data.error);
         }
@@ -237,3 +246,4 @@
 
 </body>
 </html>
+
