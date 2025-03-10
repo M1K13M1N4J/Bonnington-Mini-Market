@@ -153,14 +153,14 @@
     <label for="password">Password</label>
     <input type="password" placeholder="Password" id="password">
     <button type="submit">Log In</button>
-   <div class="social">
-  <div class="go" onclick="handleGoogleSignIn()">
-    <i class="fab fa-google"></i> Google
-  </div>
-  <div class="fb" onclick="handleFacebookSignIn()">
-    <i class="fab fa-facebook-f"></i> Facebook
-  </div>
-</div>
+    <div class="social">
+      <div class="go" onclick="handleGoogleSignIn()">
+        <i class="fab fa-google"></i> Google
+      </div>
+      <div class="fb" onclick="handleFacebookSignIn()">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </div>
+    </div>
   </form>
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -173,13 +173,20 @@
     }
 
     function handleGoogleSignIn() {
-      // Replace this with your actual Google Sign-In logic
-      console.log("Google Sign-In clicked");
+      google.accounts.id.prompt(); // Trigger the Google Sign-In prompt
     }
 
     function handleFacebookSignIn() {
-      // Replace this with your actual Facebook Sign-In logic
-      console.log("Facebook Sign-In clicked");
+      FB.login(function(response) {
+        if (response.authResponse) {
+          console.log('Welcome!  Fetching your information.... ');
+          FB.api('/me', function(response) {
+            console.log('Good to see you, ' + response.name + '.');
+          });
+        } else {
+          console.log('User cancelled login or did not fully authorize.');
+        }
+      });
     }
 
     window.onload = function () {
@@ -187,10 +194,6 @@
         client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
         callback: handleCredentialResponse
       });
-      google.accounts.id.renderButton(
-        document.getElementById("google-signin-button"), // This might need to be adjusted if you're not using a button element
-        { theme: "outline", size: "large" }
-      );
 
       // Facebook Login
       FB.init({
