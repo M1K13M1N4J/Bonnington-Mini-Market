@@ -92,7 +92,7 @@
 
     /* Loading Screen Styles */
     .loading-screen {
-      display: none !important; /* Hide the loader initially */
+      display: none; /* Hide the loader initially */
       position: fixed;
       top: 0;
       left: 0;
@@ -103,6 +103,11 @@
       display: flex; /* Use flexbox to center content */
       justify-content: center;
       align-items: center;
+    }
+
+    /* Style for when the loader is shown */
+    .loading-screen.show {
+      display: flex;
     }
 
     .loading-content {
@@ -163,7 +168,7 @@
 
   <script>
     function showLoader() {
-      document.getElementById('loader').style.display = 'flex'; // Show the loader
+      document.getElementById('loader').classList.add('show'); // Show the loader using class toggle
       // Simulate loading delay (replace with your actual logic)
       setTimeout(function() {
         window.location.href = '/login';
