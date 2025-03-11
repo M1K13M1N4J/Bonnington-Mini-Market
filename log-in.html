@@ -123,7 +123,7 @@
       border-radius: 3px;
       padding: 5px 10px 10px 5px;
       background-color: rgba(255, 255, 255, 0.27);
-      color: #ffffff; /* White text color */
+      color: #ffffff;
       text-align: center;
       cursor: pointer;
     }
@@ -132,8 +132,8 @@
       background-color: rgba(255, 255, 255, 0.47);
     }
 
-    .social .ms { /* Updated selector for Microsoft button */
-      margin-left: 25px;
+    .social .go {
+      margin-left: 25px; /* Adjust as needed */
     }
 
     .social i {
@@ -157,7 +157,9 @@
       <div class="go" onclick="handleGoogleSignIn()">
         <i class="fab fa-google"></i> Google
       </div>
-      <div class="ms" onclick="handleMicrosoftSignIn()"> <i class="fab fa-microsoft"></i> Microsoft </div>
+      <div class="ms" onclick="handleMicrosoftSignIn()">
+        <i class="fab fa-microsoft"></i> Microsoft
+      </div>
     </div>
   </form>
 
@@ -170,7 +172,9 @@
     }
 
     function handleGoogleSignIn() {
-      google.accounts.id.prompt(); // Trigger the Google Sign-In prompt
+      google.accounts.id.prompt({
+        ux_mode: 'redirect'
+      });
     }
 
     function handleMicrosoftSignIn() {
@@ -180,8 +184,9 @@
 
     window.onload = function () {
       google.accounts.id.initialize({
-        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
-        callback: handleCredentialResponse
+        client_id: "YOUR_GOOGLE_CLIENT_ID", // Replace with your Google Client ID
+        callback: handleCredentialResponse,
+        ux_mode: 'redirect'
       });
     };
 
