@@ -163,26 +163,27 @@
     </div>
   </form>
 
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
-
   <script>
     function handleGoogleSignIn() {
       // Redirects to Google OAuth full-page login
-      window.location.href = "https://accounts.google.com/o/oauth2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=token&scope=email%20profile";
+      var clientId = "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com";
+      var redirectUri = "https://bonningtonminimarket.netlify.app/auth/callback";
+      var scope = "email profile";
+      var encodedScope = encodeURIComponent(scope);
+
+      var authUrl = "https://accounts.google.com/o/oauth2/auth?" +
+        "client_id=" + clientId +
+        "&redirect_uri=" + encodeURIComponent(redirectUri) +
+        "&response_type=token" +
+        "&scope=" + encodedScope;
+
+      window.location.href = authUrl;
     }
 
     function handleMicrosoftSignIn() {
       // Replace this with your actual Microsoft Sign-In logic
       console.log("Microsoft Sign-In clicked");
     }
-
-    window.onload = function () {
-      google.accounts.id.initialize({
-        client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
-        ux_mode: 'redirect', // Forces full-page redirect
-        login_uri: "https://bonningtonminimarket.netlify.app/auth/callback"
-      });
-    };
 
     // Regular form submission
     document.getElementById('login-form').addEventListener('submit', async (event) => {
