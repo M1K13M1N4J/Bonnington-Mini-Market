@@ -166,15 +166,9 @@
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <script>
-    function handleCredentialResponse(response) {
-      console.log("Encoded JWT ID token: " + response.credential);
-      // TODO: Send response.credential to your backend for verification
-    }
-
     function handleGoogleSignIn() {
-      google.accounts.id.prompt({
-        ux_mode: 'redirect'
-      });
+      // Redirects to Google OAuth full-page login
+      window.location.href = "https://accounts.google.com/o/oauth2/auth?client_id=YOUR_CLIENT_ID&redirect_uri=YOUR_REDIRECT_URI&response_type=token&scope=email%20profile";
     }
 
     function handleMicrosoftSignIn() {
@@ -185,8 +179,8 @@
     window.onload = function () {
       google.accounts.id.initialize({
         client_id: "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com", // Replace with your Google Client ID
-        callback: handleCredentialResponse,
-        ux_mode: 'redirect'
+        ux_mode: 'redirect', // Forces full-page redirect
+        login_uri: "YOUR_REDIRECT_URI"
       });
     };
 
@@ -219,3 +213,4 @@
   </script>
 </body>
 </html>
+
