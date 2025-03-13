@@ -1,177 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bonnington Mini Market Home</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-color: #080710;
-            color: #ffffff;
-            font-family: 'Poppins', sans-serif;
-            overflow-x: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bonnington Mini Market Login</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+  <style>
+    *,
+    *:before,
+    *:after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
 
-        .background {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            overflow: hidden;
-        }
+    body {
+      background-color: #080710;
+    }
 
-        .background .shape {
-            height: 200px;
-            width: 200px;
-            position: absolute;
-            border-radius: 50%;
-        }
+    .background {
+      width: 430px;
+      height: 520px;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+    }
 
-        .shape:first-child {
-            background: linear-gradient(#1845ad, #23a2f6);
-            left: -80px;
-            top: -80px;
-        }
+    .background .shape {
+      height: 200px;
+      width: 200px;
+      position: absolute;
+      border-radius: 50%;
+    }
 
-        .shape:nth-child(2) {
-            background: linear-gradient(to right, #ff512f, #f09819);
-            right: -30px;
-            top: 80px;
-        }
+    .shape:first-child {
+      background: linear-gradient(#1845ad, #23a2f6);
+      left: -80px;
+      top: -80px;
+    }
 
-        .shape:last-child {
-            background: linear-gradient(to bottom right, #ff512f, #23a2f6);
-            left: 120px;
-            bottom: -80px;
-        }
+    .shape:nth-child(2) {
+      background: linear-gradient(to right, #ff512f, #f09819);
+      right: -30px;
+      bottom: -80px;
+    }
 
-        .content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            text-align: center;
-            padding: 20px;
-            max-width: 80%;
-        }
+    .shape:last-child {
+        background: linear-gradient(to bottom right, #ff512f, #23a2f6);
+        left: 20px;
+        bottom: 20px;
+    }
 
-        h1 {
-            font-size: 2em;
-            font-weight: 500;
-            margin-bottom: 1em;
-        }
+    form {
+      height: 520px;
+      width: 400px;
+      background-color: rgba(255, 255, 255, 0.13);
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+      padding: 50px 35px;
+    }
 
-        p {
-            font-size: 1em;
-            line-height: 1.6;
-        }
+    form * {
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+      letter-spacing: 0.5px;
+      outline: none;
+      border: none;
+    }
 
-        button {
-            background-color: #f2f2f2;
-            color: #333;
-            padding: 10px 20px;
-            font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 1em;
-        }
+    form h3 {
+      font-size: 32px;
+      font-weight: 500;
+      line-height: 42px;
+      text-align: center;
+    }
 
-        @media (max-width: 600px) {
-            .background {
-                height: 100%;
-            }
+    label {
+      display: block;
+      margin-top: 30px;
+      font-size: 16px;
+      font-weight: 500;
+    }
 
-            .shape:first-child,
-            .shape:last-child {
-                display: none;
-            }
-        }
+    input {
+      display: block;
+      height: 50px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.07);
+      border-radius: 3px;
+      padding: 0 10px;
+      margin-top: 8px;
+      font-size: 14px;
+      font-weight: 300;
+    }
 
-        /* Loading Screen Styles */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    ::placeholder {
+      color: #e5e5e5;
+    }
 
-        .loading-content {
-            /* No need for positioning or transform */
-        }
+    button {
+      margin-top: 50px;
+      width: 100%;
+      background-color: #ffffff;
+      color: #080710;
+      padding: 15px 0;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-        .loading-circle {
-            height: 50px;
-            width: 50px;
-            border-radius: 50%;
-            background: linear-gradient(#1845ad, #23a2f6);
-            margin: 10px;
-            display: inline-block;
-            animation: pulse 1s ease-in-out infinite alternate;
-        }
+    .social {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+    }
 
-        .loading-circle:nth-child(2) {
-            background: linear-gradient(to right, #ff512f, #f09819);
-            animation-delay: 0.2s;
-        }
+    .social div {
+      width: 150px;
+      border-radius: 3px;
+      padding: 5px 10px 10px 5px;
+      background-color: rgba(255, 255, 255, 0.27);
+      color: #ffffff;
+      text-align: center;
+      cursor: pointer;
+      margin: 0 5px;
+    }
 
-        .loading-circle:nth-child(3) {
-            background: linear-gradient(to bottom right, #ff512f, #23a2f6);
-            animation-delay: 0.4s;
-        }
+    .social div:hover {
+      background-color: rgba(255, 255, 255, 0.47);
+    }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            100% {
-                transform: scale(1.2);
-            }
-        }
-    </style>
+    .social i {
+      margin-right: 4px;
+    }
+  </style>
 </head>
 <body>
-    <div class="loading-screen" id="loader">
-        <div class="loading-content">
-            <div class="loading-circle"></div>
-            <div class="loading-circle"></div>
-            <div class="loading-circle"></div>
-        </div>
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <form id="login-form">
+    <h3>Login Here</h3>
+    <label for="username">Username</label>
+    <input type="text" placeholder="Email or Phone" id="username">
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" id="password">
+    <button type="submit">Log In</button>
+    <div class="social">
+      <div class="go" onclick="handleGoogleSignIn()">
+        <i class="fab fa-google"></i> Google
+      </div>
+      <div class="ms" onclick="handleMicrosoftSignIn()">
+        <i class="fab fa-microsoft"></i> Microsoft
+      </div>
     </div>
-    <div class="background">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-    </div>
-    <div class="content">
-        <h1>Welcome to Bonnington Mini Market</h1>
-        <p>Your one-stop shop for everyday essentials!</p>
-        <p>Browse our wide selection of groceries, fresh produce, household items, and more.</p>
-        <p>Visit us today and experience the convenience!</p>
-        <button onclick="showLoader()">Login</button>
-    </div>
+  </form>
 
-    <script>
-        // Hide loading screen after page load
-        window.addEventListener('load', function() {
-            document.getElementById('loader').style.display = 'none';
+  <script>
+    function handleGoogleSignIn() {
+      // Redirects to Google OAuth full-page login
+      var clientId = "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com";
+      var redirectUri = "https://bonningtonminimarket.netlify.app/auth/callback";
+      var scope = "email profile";
+      var encodedScope = encodeURIComponent(scope);
+
+      var authUrl = "https://accounts.google.com/o/oauth2/auth?" +
+        "client_id=" + clientId +
+        "&redirect_uri=" + encodeURIComponent(redirectUri) +
+        "&response_type=token" +
+        "&scope=" + encodedScope;
+
+      window.location.href = authUrl;
+    }
+
+    function handleMicrosoftSignIn() {
+      // Replace this with your actual Microsoft Sign-In logic
+      console.log("Microsoft Sign-In clicked");
+    }
+
+    // Regular form submission
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('/.netlify/functions/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
         });
 
-        function showLoader() {
-            document.getElementById('loader').style.display = 'flex';
-            // Simulate loading delay (replace with your actual logic)
-            setTimeout(function() {
-                window.location.href = '/login';
-            }, 2000); // Adjust delay as needed
+        const data = await response.json();
+        if (response.ok) {
+          console.log(data.message);
+        } else {
+          console.error(data.error);
         }
-    </script>
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    });
+  </script>
 </body>
 </html>
