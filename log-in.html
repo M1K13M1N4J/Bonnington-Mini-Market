@@ -49,9 +49,9 @@
     }
 
     .shape:last-child {
-        background: linear-gradient(to bottom right, #ff512f, #23a2f6);
-        left: 20px;
-        bottom: 20px;
+      background: linear-gradient(to bottom right, #ff512f, #23a2f6);
+      left: 20px;
+      bottom: 20px;
     }
 
     form {
@@ -169,7 +169,7 @@
   </form>
 
   <script>
-    function handleGoogleSignIn() {
+   function handleGoogleSignIn() {
       // Redirects to Google OAuth full-page login
       var clientId = "116997774592-82b5gck43qtl7prknslms3lb29pmgrgj.apps.googleusercontent.com";
       var redirectUri = "https://bonningtonminimarket.netlify.app/auth/callback";
@@ -216,6 +216,44 @@
         console.error('An error occurred:', error);
       }
     });
+
+    // Handle Google OAuth Callback (after redirect)
+    const urlParams = new URLSearchParams(window.location.hash.substring(1));
+    const accessToken = urlParams.get('access_token');
+    if (accessToken) {
+        fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+            headers: {
+                Authorization: `Bearer ${accessToken}`
+            }
+        })
+        .then(response => response.json())
+        .then(userInfo => {
+            const googleEmail = userInfo.email;
+            const googleName = userInfo.name;
+          fetch('/.netlify/functions/google-login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ googleEmail, googleName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (response.status === 201) {
+                    // New account needed
+                    window.location.href = `/create-account?email=${data.googleEmail}&name=${data.googleName}`;
+                } else if (response.status === 200) {
+                    // Login successful
+                    console.log('Google login successful');
+                    // Handle successful login
+                } else {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        })
+        .catch(error => console.error('Error:', error));
+    }
   </script>
 </body>
 </html>
